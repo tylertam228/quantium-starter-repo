@@ -1,15 +1,15 @@
-import dash
-from dash import html, dcc
-import plotly.express as px
-import plotly.graph_objects as go
-import pandas as pd
-import numpy as np
+import dash #創建交互式網頁應用的框架
+from dash import html, dcc #佈局和圖表
+import plotly.express as px #簡單地創建圖表的庫
+import plotly.graph_objects as go #創建更複雜的圖表
+import pandas as pd #處理數據的庫
+import numpy as np #處理數據的庫
 
 # Load data
 df = pd.read_csv('formatted_data.csv')
 
 # Convert date column to datetime format
-df['date'] = pd.to_datetime(df['date'])
+df['date'] = pd.to_datetime(df['date']) #轉換為日期時間格式
 
 # Create Dash application
 app = dash.Dash(__name__)
@@ -19,11 +19,11 @@ daily_sales = df.groupby('date')['sales'].sum().reset_index()
 
 # Create chart
 fig = px.line(daily_sales, 
-              x='date', 
-              y='sales',
-              title='Pink Morsel Sales Trend',
-              labels={'date': 'Date', 'sales': 'Sales'},
-              markers=True)
+              x='date', #x軸
+              y='sales', #y軸
+              title='Pink Morsel Sales Trend', #圖表標題
+              labels={'date': 'Date', 'sales': 'Sales'}, #標籤
+              markers=True) #標記
 
 # Add vertical line for price increase date
 price_increase_date = '2021-01-15'
